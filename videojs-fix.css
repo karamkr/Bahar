@@ -1,0 +1,17 @@
+/* إصلاح الخط للأزرار التي تضيفها videojs-seek-buttons */
+.video-js .vjs-seek-button {
+  font-family: sans-serif !important;
+}
+
+/* عرض رموز التقديم والتأخير بشكل واضح */
+.video-js .vjs-seek-button.vjs-seek-back::before {
+  content: "⏪";
+  font-size: 1.4em;
+  font-family: sans-serif !important;
+}
+
+.video-js .vjs-seek-button.vjs-seek-forward::before {
+  content: "⏩";
+  font-size: 1.4em;
+  font-family: sans-serif !important;
+}
