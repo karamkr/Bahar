@@ -93,8 +93,17 @@
   </style>
 </head>
 <body>
-  <!-- Advertisement Banner Start -->
-  <div class="ad-banner" style="background: var(--primary); color: #fff; text-align: center; padding: 1rem; margin-bottom: 1rem; border-radius: 8px;">
+  <header>
+    <h1 class="site-title" onclick="navigate('home')">بحر أكاديمي</h1>
+    <button id="themeToggle">تبديل الوضع</button>
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="ابحث عن مدرس...">
+      <button id="searchButton">بحث</button>
+    </div>
+  </header>
+  
+  <!-- Moved Advertisement Banner Start -->
+  <div class="ad-banner" style="background: var(--primary); color: #fff; text-align: center; padding: 1rem; margin: 1rem auto; border-radius: 8px; max-width: 1200px;">
     <p style="margin-bottom: 0.5rem; font-weight: bold;">
       المحاضرات كلها جديد للسنوات ٢٠٢٥ و٢٠٢٦<br>
       المحاضرات تابعة لمنصة ثانية<br>
@@ -104,7 +113,7 @@
       اذهب إلى القناة
     </a>
   </div>
-  <!-- Advertisement Banner End -->
+  <!-- Moved Advertisement Banner End -->
   
   <div id="jsonViewer" style="display: none; background: var(--card-color); padding: 1rem; margin: 2rem; border-radius: 8px;">
     <pre id="jsonContent" style="white-space: pre-wrap; word-wrap: break-word;"></pre>
@@ -120,14 +129,7 @@
         if (currentTeacher) renderClasses(currentTeacher.classes);
       }
     }
-  </script>  <header>
-    <h1 class="site-title" onclick="navigate('home')">بحر أكاديمي</h1>
-    <button id="themeToggle">تبديل الوضع</button>
-    <div class="search-container">
-      <input type="text" id="searchInput" placeholder="ابحث عن مدرس...">
-      <button id="searchButton">بحث</button>
-    </div>
-  </header>  <div id="homePage" class="page active">
+  </script>  <div id="homePage" class="page active">
     <div class="teachers-grid" id="teachersGrid"></div>
   </div>  <div id="classesPage" class="page">
     <div class="classes-page">
