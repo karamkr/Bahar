@@ -106,15 +106,28 @@
       <div class="video-details"><h2 id="videoTitle"></h2><p id="videoDescription"></p>
         <button class="back-button" onclick="navigate('classes')">العودة للفصول</button></div>
     </div>
-  </div>  <div id="telegramModal" class="modal"><div class="modal-content">
-      <button class="close-modal" onclick="closeModal()">×</button>
-      <img src="https://j.top4top.io/p_34306njy91.png" alt="قناة التليجرام">
-      <h3>اشترك في قناة التليجرام</h3>
-<p>
-قد يتغير رابط الموقع في المستقبل، لذا تأكد من الاشتراك في قناتنا على التليجرام لتصلك التحديثات وروابط الدخول الجديدة دائمًا.
-</p>
+  </div> 
+  
+<div id="telegramModal" class="modal">
+  <div class="modal-content">
+    <button class="close-modal" onclick="closeModal()">×</button>
+    <img src="https://j.top4top.io/p_34306njy91.png" alt="قناة التليجرام">
+    <h3>اشترك في قناة التليجرام</h3>
+    <p>
+      قد يتغير رابط الموقع في المستقبل، لذا تأكد من الاشتراك في قناتنا على التليجرام لتصلك التحديثات وروابط الدخول الجديدة دائمًا.
+    </p>
+    <div style="margin-top: 20px; text-align: right;">
+      <button onclick="closeModal()" style="background-color: #ccc; border: none; padding: 10px 20px; cursor: pointer;">
+        اشترك لاحقًا
+      </button>
+    </div>
+  </div>
+</div>
 
-      <a href="https://t.me/E_V_N" target="_blank">اذهب للقناة</a></div></div>  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>  <script src="https://cdn.plyr.io/3.7.2/plyr.polyfilled.js"></script>  <script type="text/babel">
+
+      <a href="https://t.me/E_V_N" target="_blank">اذهب للقناة</a></div></div>
+      
+      <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>  <script src="https://cdn.plyr.io/3.7.2/plyr.polyfilled.js"></script>  <script type="text/babel">
     function initializeTheme() {
       var stored = localStorage.getItem('theme');
       var theme = stored || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
