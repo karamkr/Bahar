@@ -1,3 +1,20 @@
-window.getDataUrl = function() {
-  return atob("aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0thcmFtLVNhYmFoL2pzb24vcmVmcy9oZWFkcy9tYWluL2RhdGEuanNvbg==");
-};
+// env.js
+(function(){
+  const parts = [
+    "aHR0cHM6Ly9yYXcu", 
+    "Z2l0aHVidXNlcmNv", 
+    "bnRlbnQuY29tL0th",
+    "cmFtLVNhYmFoL2pz",
+    "b24vcmVmcy9oZWFk",
+    "cy9tYWluL2RhdGEu",
+    "anNvbg=="
+  ];
+
+  const joined = parts.join('');
+  const decoded = atob(joined);
+
+  window.getDataUrl = function() {
+    let shuffled = decoded.split('').map((c, i) => String.fromCharCode(c.charCodeAt(0))).join('');
+    return shuffled;
+  };
+})();
