@@ -310,7 +310,7 @@
 
     function loadData(){
       var errorMsg = '<p class="error">حدث خطأ في تحميل البيانات</p>';
-      fetch('/api/data', { headers: { 'Referer': 'https://careful-burnt-honesty.glitch.me/' } })
+      fetch('data.json')
         .then(res => { if (!res.ok) throw new Error('فشل تحميل البيانات'); return res.json(); })
         .then(data => {
           teachers = data.teachers;
