@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="ar" dir="rtl"><head>
+<!DOCTYPE html><html lang="ar" dir="rtl">
+  <head>
+    <script src="env.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>بحر أكاديمي</title>
@@ -171,9 +173,6 @@
 
 
       <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>  <script src="https://cdn.plyr.io/3.7.2/plyr.polyfilled.js"></script>  <script type="text/babel">
-	// Add definition for DATA_URL from environment variables (the server should inject this)
-	const DATA_URL = process.env.DATA_URL; // or use template syntax if needed
-
     function initializeTheme() {
       var stored = localStorage.getItem('theme');
       var theme = stored || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
@@ -211,7 +210,7 @@
 function loadData() {
   teachersGrid.innerHTML = '<p>جاري التحميل...</p>';
   var errorMsg = '<p class="error">حدث خطأ في تحميل البيانات</p>';
-  fetch(DATA_URL)
+  fetch(window.getDataUrl())
     .then(function(res) {
       if (!res.ok) throw new Error('فشل تحميل البيانات');
       return res.json();
@@ -235,7 +234,7 @@ function loadData() {
   
   <!-- New Footer Start -->
 <footer class="site-footer" style="background: var(--card-color); color: var(--text-color); padding: 1.5rem; text-align: center; margin-top: 2rem;">
-  <p style="margin-bottom: 1rem;">© جميع الحقوق محفوظة لسنة 2025</p>
+  <p style="margin-bottom: 1rem;">© جميع الحقوق محفوظة لسنة ٢٠٢٥</p>
   <div class="social-links" style="display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; align-items: center;">
     <a href="https://www.facebook.com/7B.A.H.R?mibextid=ZbWKwL" target="_blank" style="display: flex; align-items: center; gap: 0.5rem; color: var(--primary); text-decoration: none; font-weight: bold;">
       <img src="https://cdn-icons-png.flaticon.com/24/733/733547.png" alt="Facebook" width="24" height="24"> Facebook
