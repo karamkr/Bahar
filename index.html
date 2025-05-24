@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>بحر أكاديمي</title>
+  <title>أكاديمي بحر</title>
   <link rel="icon" type="image/png" href="https://j.top4top.io/p_34306njy91.png">
   <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
@@ -95,6 +95,19 @@
     .video-js .vjs-control {
       font-family: VideoJS !important;
     }
+    /* Default icons for debugging */
+    .video-js .vjs-control:before {
+      content: "🔧"; /* Fallback debug icon */
+      font-size: 1.5rem;
+      color: red;
+    }
+    /* Specific controls to check common buttons */
+    .video-js .vjs-play-control:before {
+      content: "▶";
+    }
+    .video-js .vjs-fullscreen-control:before {
+      content: "⛶";
+    }
   </style>
 </head>
 <body>
@@ -103,7 +116,7 @@
   </div>
 
   <header>
-    <h1 class="site-title" onclick="navigate('home')">بحر أكاديمي</h1>
+    <h1 class="site-title" onclick="navigate('home')">أكاديمية بحر</h1>
     <button id="themeToggle">تبديل الوضع</button>
     <div class="search-container">
       <input type="text" id="searchInput" placeholder="ابحث عن مدرس...">
