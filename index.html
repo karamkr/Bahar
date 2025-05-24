@@ -100,26 +100,26 @@
     .video-js .vjs-seek-button {
       font-family: VideoJS !important;
     }
-    /* Override seek buttons icons with custom Unicode arrows */
-    .video-js .vjs-seek-button.vjs-seek-back::before {
-      content: "⏪";
-      font-size: 1.5em;
-      line-height: 1;
-      font-family: sans-serif !important;
-    }
-    .video-js .vjs-seek-button.vjs-seek-forward::before {
-      content: "⏩";
-      font-size: 1.5em;
-      line-height: 1;
-      font-family: sans-serif !important;
-    }
-    /* Hide any inherited icon font if necessary */
-    .video-js .vjs-seek-button::before {
-      font-family: sans-serif !important;
-    }
   </style>
 </head>
 <body>
+  <div id="jsonViewer" style="display: none; background: var(--card-color); padding: 1rem; margin: 2rem; border-radius: 8px;">
+    <pre id="jsonContent" style="white-space: pre-wrap; word-wrap: break-word;"></pre>
+  </div>
+
+  <header>
+    <h1 class="site-title" onclick="navigate('home')">بحر أكاديمي</h1>
+    <button id="themeToggle">تبديل الوضع</button>
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="ابحث عن مدرس...">
+      <button id="searchButton">بحث</button>
+    </div>
+  </header>
+
+  <div id="homePage" class="page active">
+    <div class="teachers-grid" id="teachersGrid"></div>
+  </div>
+
   <div id="classesPage" class="page">
     <div class="classes-page">
       <button class="back-button" onclick="navigate('home')">← الرجوع للمدرسين</button>
