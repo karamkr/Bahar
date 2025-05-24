@@ -99,7 +99,7 @@ app.use(express.static(__dirname, {
   index: false,
   setHeaders: (res, path) => {
     if (
-      path.endsWith('admin.html') ||
+      path.endsWith('index.html') ||
       path.endsWith('server.js') ||
       path.endsWith('package.json')
     ) {
@@ -109,7 +109,7 @@ app.use(express.static(__dirname, {
 }));
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/admin.html');
+  res.sendFile(__dirname + '/index.html');
 });
 
 app.listen(port, () => {
