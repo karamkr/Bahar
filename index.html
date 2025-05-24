@@ -106,7 +106,7 @@
   <!-- Moved Advertisement Banner Start -->
 <div class="ad-banner">
   <p class="ad-text">
-    المحاضرات محدثة بالكامل لعامي 2025 و 2026<br>
+    المحاضرات محدثة بالكامل لعامي ٢٠٢٥ و٢٠٢٦<br>
     وهي مأخوذة من منصة أخرى، وتقوم منصة بحر أكاديمي بإعادة تقديمها بأسلوب أنيق وسلس.<br>
     الموقع آمن ١٠٠٪ ويقدم المحتوى بجودة عالية.
   </p>
@@ -171,6 +171,9 @@
 
 
       <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>  <script src="https://cdn.plyr.io/3.7.2/plyr.polyfilled.js"></script>  <script type="text/babel">
+	// Add definition for DATA_URL from environment variables (the server should inject this)
+	const DATA_URL = process.env.DATA_URL; // or use template syntax if needed
+
     function initializeTheme() {
       var stored = localStorage.getItem('theme');
       var theme = stored || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
@@ -208,7 +211,7 @@
 function loadData() {
   teachersGrid.innerHTML = '<p>جاري التحميل...</p>';
   var errorMsg = '<p class="error">حدث خطأ في تحميل البيانات</p>';
-  fetch('https://raw.githubusercontent.com/Karam-Sabah/json/refs/heads/main/data.json')
+  fetch(DATA_URL)
     .then(function(res) {
       if (!res.ok) throw new Error('فشل تحميل البيانات');
       return res.json();
