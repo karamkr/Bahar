@@ -37,7 +37,13 @@
     #searchButton { padding: 0 1.5rem; }
     #themeToggle { padding: 0.5rem 1rem; }
     #searchButton:hover, #themeToggle:hover { opacity: 0.9; }
-    .teachers-grid { display: flex; overflow-x: auto; gap: 2rem; padding: 1rem 0; margin-top: 2rem; }
+    .teachers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      padding: 1rem 0;
+      margin-top: 2rem;
+    }
     .teacher-card { background: var(--card-color); padding: 1.5rem; border-radius: 15px; min-width: 280px; cursor: pointer; transition: 0.3s; flex-shrink: 0; }
     .teacher-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
     .teacher-img { width: 200px; height: 200px; border-radius: 50%; object-fit: cover; border: 3px solid var(--primary); display: block; margin: 0 auto; }
