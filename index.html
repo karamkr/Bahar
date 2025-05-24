@@ -3,16 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>منصة السادس</title>
+  <title>أكاديمي بحر</title>
   <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700&display=swap" rel="stylesheet">
-  <!-- Video.js CSS -->
   <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
-  <!-- Seek Buttons plugin CSS -->
   <link href="https://unpkg.com/videojs-seek-buttons/dist/videojs-seek-buttons.css" rel="stylesheet" />
-  <!-- polyfills للأجهزة القديمة -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/4.2.8/es6-promise.auto.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/3.6.2/fetch.min.js"></script>
-  <!-- Babel لتحويل الكود ES6+ إلى ES5 على المتصفح -->
   <script src="https://cdn.jsdelivr.net/npm/@babel/standalone/babel.min.js"></script>
   <style>
     :root {
@@ -61,15 +57,14 @@
     .lecture-item:hover { background: #4a1a1a; transform: translateX(10px); }
     .checkmark { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 1rem; color: var(--primary); }
     .video-page { display: flex; flex-direction: column; gap: 2rem; }
-    /* الحاوية المرنة للمشغل بنسبة 16:9 */
     .video-container {
       position: relative;
       width: 100%;
-      padding-top: 56.25%; /* 16:9 aspect ratio */
+      padding-top: 56.25%; 
       background: black;
       overflow: hidden;
     }
-    /* جعل المشغل يحتل كامل الحاوية ويضم شريط التحكم */
+
     .video-container .video-js {
       position: absolute;
       top: 0;
@@ -100,7 +95,7 @@
   </div>
 
   <header>
-    <h1 class="site-title" onclick="navigate('home')">منصة السادس</h1>
+    <h1 class="site-title" onclick="navigate('home')">أكاديمية بحر</h1>
     <button id="themeToggle">تبديل الوضع</button>
     <div class="search-container">
       <input type="text" id="searchInput" placeholder="ابحث عن مدرس...">
@@ -148,19 +143,17 @@
   <div id="telegramModal" class="modal">
     <div class="modal-content">
       <button class="close-modal" onclick="closeModal()">×</button>
-      <img src="https://i.imghippo.com/files/IBrC7556pk.png" alt="قناة التليجرام">
+      <img src="https://j.top4top.io/p_34306njy91.png" alt="قناة التليجرام">
       <h3>اشترك في قناة التليجرام</h3>
       <p>تابع آخر التحديثات والمحتوى الجديد</p>
-      <a href="https://t.me/sads86ff" target="_blank">اذهب للقناة</a>
+      <a href="https://t.me/E_V_N" target="_blank">اذهب للقناة</a>
     </div>
   </div>
 
-  <!-- Video.js وملحقات -->
   <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
   <script src="https://unpkg.com/videojs-seek-buttons/dist/videojs-seek-buttons.min.js"></script>
 
   <script type="text/babel">
-    // إعداد الثيم
     function initializeTheme() {
       var stored = localStorage.getItem('theme');
       var theme = stored || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
@@ -174,7 +167,6 @@
       localStorage.setItem('theme', next);
     });
 
-    // إدارة حفظ التقدم
     var completedLectures = JSON.parse(localStorage.getItem('completedLectures') || '{}');
     function saveCompleted() {
       localStorage.setItem('completedLectures', JSON.stringify(completedLectures));
@@ -187,7 +179,6 @@
       }
     }
 
-    // تهيئة Video.js
     var videoPlayer = videojs('player', {
       controls: true,
       playbackRates: [0.5, 1, 1.25, 1.5, 2],
@@ -195,10 +186,9 @@
       controlBar: {
         pictureInPictureToggle: false,
         fullscreenToggle: true,
-        volumePanel: false   // إزالة زر الصوت
+        volumePanel: false  
       }
     });
-    // إضافة أزرار التقديم والتأخير
     videoPlayer.seekButtons({ forward: 10, back: 10 });
 
     var pages = {
