@@ -1,4 +1,3 @@
-// env.js
 (function(){
   const parts = [
     "aHR0cHM6Ly9yYXcu", 
