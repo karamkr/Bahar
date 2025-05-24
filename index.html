@@ -7,6 +7,8 @@
   <link rel="icon" type="image/png" href="https://j.top4top.io/p_34306njy91.png">
   <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://vjs.zencdn.net/7.20.3/video-js.min.css">
+  <link rel="stylesheet" href="https://vjs.zencdn.net/icons/videojs-icons.css">
   <link href="https://unpkg.com/videojs-seek-buttons/dist/videojs-seek-buttons.css" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/4.2.8/es6-promise.auto.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/3.6.2/fetch.min.js"></script>
@@ -87,6 +89,11 @@
       .teacher-card { min-width: auto; }
       .teacher-info { flex-direction: column; text-align: center; }
       .teacher-img { width: 150px; height: 150px; }
+    }
+
+    /* Protect Video.js icons from global CSS interference */
+    .video-js .vjs-control {
+      font-family: VideoJS !important;
     }
   </style>
 </head>
