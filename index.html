@@ -92,7 +92,21 @@
     @media (max-width: 768px) { header { flex-direction: column; padding: 1rem; gap: 1rem; } .search-container { width: 100%; } .teachers-grid { flex-direction: column; } .teacher-card { min-width: auto; } .teacher-info { flex-direction: column; text-align: center; } .teacher-img { width: 150px; height: 150px; } }
   </style>
 </head>
-<body>  <div id="jsonViewer" style="display: none; background: var(--card-color); padding: 1rem; margin: 2rem; border-radius: 8px;">
+<body>
+  <!-- Advertisement Banner Start -->
+  <div class="ad-banner" style="background: var(--primary); color: #fff; text-align: center; padding: 1rem; margin-bottom: 1rem; border-radius: 8px;">
+    <p style="margin-bottom: 0.5rem; font-weight: bold;">
+      المحاضرات كلها جديد للسنوات ٢٠٢٥ و٢٠٢٦<br>
+      المحاضرات تابعة لمنصة ثانية<br>
+      ومنصة بحر أكاديمي تقوم بصياغتها بشكل أنيق وسلس وأكثر، وهي محمية ١٠٠٪
+    </p>
+    <a href="https://t.me/YourChannelLink" style="background: #0088cc; color: #fff; padding: 0.8rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: bold;">
+      اذهب إلى القناة
+    </a>
+  </div>
+  <!-- Advertisement Banner End -->
+  
+  <div id="jsonViewer" style="display: none; background: var(--card-color); padding: 1rem; margin: 2rem; border-radius: 8px;">
     <pre id="jsonContent" style="white-space: pre-wrap; word-wrap: break-word;"></pre>
   </div>  <script type="text/babel">
     var completedLectures = JSON.parse(localStorage.getItem('completedLectures') || '{}');
@@ -152,10 +166,6 @@
 </div>
 
 
-      <div class="channel-container">
-        <a href="https://t.me/E_V_N" target="_blank" class="channel-link">اذهب لقناة التليجرام</a>
-      </div>
-      
       <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>  <script src="https://cdn.plyr.io/3.7.2/plyr.polyfilled.js"></script>  <script type="text/babel">
     function initializeTheme() {
       var stored = localStorage.getItem('theme');
@@ -201,5 +211,18 @@
     function closeModal(){document.getElementById('telegramModal').style.display='none';}
     document.addEventListener('contextmenu',function(e){e.preventDefault();});document.addEventListener('selectstart',function(e){e.preventDefault();});
     loadData();
-  </script></body>
+  </script>
+  
+  <!-- New Footer Start -->
+  <footer class="site-footer" style="background: var(--card-color); color: var(--text-color); padding: 1.5rem; text-align: center; margin-top: 2rem;">
+    <p style="margin-bottom: 1rem;">© جميع الحقوق محفوظة لسنة ٢٠٢٥</p>
+    <div class="social-links" style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+      <a href="https://facebook.com/YourFacebookPage" target="_blank" style="color: var(--primary); text-decoration: none; font-weight: bold;">Facebook</a>
+      <a href="https://youtube.com/YourYouTubeChannel" target="_blank" style="color: var(--primary); text-decoration: none; font-weight: bold;">YouTube</a>
+      <a href="https://t.me/YourTelegramChannel" target="_blank" style="color: var(--primary); text-decoration: none; font-weight: bold;">تكرام</a>
+    </div>
+  </footer>
+  <!-- New Footer End -->
+  
+</body>
 </html>
