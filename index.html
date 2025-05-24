@@ -148,7 +148,7 @@
     function handleSearch(){var term=searchInput.value.trim().toLowerCase();renderTeachers(teachers.filter(function(t){return t.name.toLowerCase().includes(term)||t.subject.toLowerCase().includes(term);}));}
     var searchTimeout;searchInput.addEventListener('input',function(){clearTimeout(searchTimeout);searchTimeout=setTimeout(handleSearch,300);});searchButton.addEventListener('click',handleSearch);
     function loadData(){var errorMsg='<p class="error">حدث خطأ في تحميل البيانات</p>';
-      fetch('https://sunn8.glitch.me/data.json',{headers:{'Referer':'https://careful-burnt-honesty.glitch.me/'}})
+      fetch('data.json')
       .then(function(res){if(!res.ok)throw new Error('فشل تحميل البيانات');return res.json();})
       .then(function(data){teachers=data.teachers;renderTeachers();console.log('بيانات JSON:',data);})
       .catch(function(error){console.error('Error:',error);teachersGrid.innerHTML=errorMsg;teachersGrid.innerHTML+='\n<button onclick="location.reload()" style="margin-top:1rem;padding:0.5rem 1rem;background:var(--primary);color:#fff;border:none;border-radius:5px;">إعادة تحميل البيانات</button>';});}
