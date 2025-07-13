@@ -1136,7 +1136,7 @@
       
       teachersGrid.innerHTML = list.map(teacher => `
         <div class="teacher-card" onclick="showTeacher('${teacher.id}')">
-          <img src="https://iq200.netlify.app/${teacher.image}" alt="${teacher.name}" class="teacher-img" loading="lazy">
+          <img src="https://karambahar.netlify.app/${teacher.image}" alt="${teacher.name}" class="teacher-img" loading="lazy">
           <h3 class="teacher-name">${teacher.name}</h3>
           <p class="teacher-subject">${teacher.subject}</p>
         </div>
@@ -1359,10 +1359,10 @@
     function renderMaterials() {
       materialsGrid.innerHTML = materials.map(material => `
         <div class="material-card">
-          <img src="https://iq200.netlify.app/${material.image}" alt="${material.title}" class="material-img" loading="lazy">
+          <img src="https://karambahar.netlify.app/${material.image}" alt="${material.title}" class="material-img" loading="lazy">
           <h3 class="material-title">${material.title}</h3>
           <p class="material-subject">${material.subject}</p>
-          <a href="https://iq200.netlify.app/${material.downloadUrl}" target="_blank" class="download-btn">
+          <a href="https://karambahar.netlify.app/${material.downloadUrl}" target="_blank" class="download-btn">
             <i class="fas fa-download"></i>
             تحميل الملزمة
           </a>
@@ -1430,7 +1430,7 @@
           <h3 class="exam-title">${exam.title}</h3>
           <p class="exam-subject">${exam.subject} - ${exam.chapter}</p>
           <p style="margin-bottom: 1.5rem;">${exam.description}</p>
-          <a href="https://iq200.netlify.app/${exam.downloadUrl}" target="_blank" class="download-btn">
+          <a href="https://karambahar.netlify.app/${exam.downloadUrl}" target="_blank" class="download-btn">
             <i class="fas fa-download"></i>
             تحميل الامتحان
           </a>
