@@ -103,32 +103,7 @@
       <button id="searchButton">بحث</button>
     </div>
   </header>
-<div class="ad-banner">
-  <p class="ad-text">
-    المحاضرات محدثة بالكامل لعامي 2025 و2026<br>
-    وهي مأخوذة من منصة أخرى، وتقوم منصة بحر أكاديمي بإعادة تقديمها بأسلوب أنيق وسلس.<br>
-    الموقع آمن 100% ويقدم المحتوى بجودة عالية.
-  </p>
-  <a class="ad-button" href="https://t.me/E_V_N">
-    <img class="ad-logo" src="https://j.top4top.io/p_34306njy91.png" alt="شعار القناة">
-    انتقل إلى قناة التليجرام
-  </a>
-</div>
-  <div id="jsonViewer" style="display: none; background: var(--card-color); padding: 1rem; margin: 2rem; border-radius: 8px;">
-    <pre id="jsonContent" style="white-space: pre-wrap; word-wrap: break-word;"></pre>
-  </div>  <script type="text/babel">
-    var completedLectures = JSON.parse(localStorage.getItem('completedLectures') || '{}');
-    function saveCompleted() {
-      localStorage.setItem('completedLectures', JSON.stringify(completedLectures));
-    }
-    function markLectureCompleted(url) {
-      if (!completedLectures[url]) {
-        completedLectures[url] = true;
-        saveCompleted();
-        if (currentTeacher) renderClasses(currentTeacher.classes);
-      }
-    }
-  </script>  <div id="homePage" class="page active">
+  <div id="homePage" class="page active">
     <div class="teachers-grid" id="teachersGrid"></div>
   </div>  <div id="classesPage" class="page">
     <div class="classes-page">
@@ -187,111 +162,194 @@
       settings: ['speed','quality'], speed:{selected:1,options:[0.5,1,1.25,1.5,2]}, seekTime:10
     });
 
-    var pages={home:document.getElementById('homePage'),classes:document.getElementById('classesPage'),video:document.getElementById('videoPage')};
-    var teachersGrid=document.getElementById('teachersGrid');var searchInput=document.getElementById('searchInput');var searchButton=document.getElementById('searchButton');
-    var teachers=[],currentTeacher=null,currentClassIndex=0,currentLectureIndex=0,currentLectureLink='';
-    function navigate(page){window.scrollTo(0,0);if(page!=='video'){player.pause();if(hls){hls.destroy();hls=null;}}Object.keys(pages).forEach(function(k){pages[k].classList.remove('active');});pages[page].classList.add('active');}
-    function copyLectureLink(){if(!currentLectureLink)return;navigator.clipboard.writeText(currentLectureLink).then(function(){alert('تم نسخ رابط المحاضرة');}).catch(function(){alert('حدث خطأ أثناء النسخ');});}
-    function renderTeachers(list){list=list||teachers;if(!list.length){teachersGrid.innerHTML='<p>لا يوجد نتائج مطابقة</p>';return;}teachersGrid.innerHTML=list.map(function(t){return '<div class="teacher-card" onclick="showTeacher(\''+t.id+'\')"><img src="'+t.image+'" alt="'+t.name+'" class="teacher-img"><h3 class="teacher-name">'+t.name+'</h3><p>'+t.subject+'</p></div>';}).join('');}
-    function showTeacher(id){currentTeacher=teachers.find(function(t){return t.id==id;});if(!currentTeacher)return;document.getElementById('teacherImage').src=currentTeacher.image;document.getElementById('teacherName').textContent=currentTeacher.name;document.getElementById('teacherSubject').textContent=currentTeacher.subject;renderClasses(currentTeacher.classes);navigate('classes');}
-    function renderClasses(classesData){document.getElementById('classesList').innerHTML=classesData.map(function(cls,ci){var lectures=cls.lectures.map(function(lec,li){var done=completedLectures[lec.url];return '<div class="lecture-item" onclick="playVideo('+ci+','+li+',\''+lec.url.replace(/'/g,"\\'")+'\',\''+lec.title.replace(/'/g,"\\'")+'\',\''+lec.description.replace(/'/g,"\\'")+'\')">'+(li+1)+'. '+lec.title+(done?'<span class="checkmark">✔</span>':'')+'</div>';}).join('');return '<div class="class-card"><div class="class-header" onclick="toggleLectures(this)"><h3>'+cls.name+'</h3><span>▼</span></div><div class="lectures-list">'+lectures+'</div></div>';}).join('');}
-    function toggleLectures(el){var list=el.parentElement.querySelector('.lectures-list');var arrow=el.querySelector('span');if(!list.style.display||list.style.display==='none'){list.style.display='grid';arrow.textContent='▲';}else{list.style.display='none';arrow.textContent='▼';}}
-    function playVideo(ci,li,url,title,desc){
-  currentClassIndex=ci;currentLectureIndex=li;currentLectureLink=url;
-  var video=document.getElementById('player');
-
-  if (url.endsWith('.m3u8')) {
-    console.log('Trying to play m3u8:', url);
-    if (hls) {
-      hls.destroy();
-    }
-    if (typeof Hls === 'undefined') {
-      alert('Hls.js library is not loaded!');
-      console.error('Hls.js is not loaded.');
-      return;
-    }
-    if (Hls.isSupported()) {
-      hls = new Hls({
-        autoStartLoad: true,
-        startLevel: -1,
-        capLevelToPlayerSize: true,
-        maxBufferLength: 30
-      });
-      
-      function proxiedUrl(url) {
-  return url.endsWith('.m3u8') ? `/proxy/${encodeURIComponent(url)}` : url;
-}
-
-      hls.loadSource(proxiedUrl(url));
-      hls.attachMedia(video);
-
-      hls.on(Hls.Events.ERROR, function (event, data) {
-        console.error('HLS error:', data);
-        if (data.type === 'networkError' || data.details === 'manifestLoadError' || data.details === 'levelLoadError') {
-          // عرض رسالة خطأ مع زر نسخ الرابط
-          if (confirm('تعذر تحميل الفيديو. قد يكون الرابط غير صالح أو هناك مشكلة في الاتصال أو حماية من السيرفر (CORS).\n\nهل تريد نسخ رابط الفيديو لتجربته في متصفح أو برنامج خارجي؟')) {
-            navigator.clipboard.writeText(url).then(function() {
-              alert('تم نسخ الرابط. يمكنك لصقه في VLC أو المتصفح.');
-            });
-          }
-        } else {
-          alert('حدث خطأ أثناء تحميل الفيديو (HLS): ' + data.type);
-        }
-      });
-
-      hls.on(Hls.Events.MANIFEST_PARSED, function () {
-        player.play();
-      });
-
-      hls.on(Hls.Events.LEVEL_SWITCHED, function (event, data) {
-        console.log('Switched to quality level:', data.level);
-      });
-    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-      video.src = url;
-      video.addEventListener('loadedmetadata', function () {
-        player.play();
-      });
-    } else {
-      alert('هذا المتصفح لا يدعم بث الفيديو بهذا الصيغة (m3u8)');
-      console.error('m3u8 not supported in this browser');
-      return;
-    }
-  }
-  else {
-    player.source = {
-      type: 'video',
-      sources: [{src: url, type: 'video/mp4'}]
+    var pages = {
+      home: document.getElementById('homePage'),
+      classes: document.getElementById('classesPage'),
+      video: document.getElementById('videoPage')
     };
-    player.play();
-  }
-  document.getElementById('videoTitle').textContent=title;
-  document.getElementById('videoDescription').textContent=desc;
-  navigate('video');
-}
-    player.on('ended',function(){markLectureCompleted(currentLectureLink);var cls=currentTeacher.classes;var ci=currentClassIndex;var li=currentLectureIndex;if(li<cls[ci].lectures.length-1){li++;}else if(ci<cls.length-1){ci++;li=0;}else return;var next=cls[ci].lectures[li];playVideo(ci,li,next.url,next.title,next.description);});
-    function handleSearch(){var term=searchInput.value.trim().toLowerCase();renderTeachers(teachers.filter(function(t){return t.name.toLowerCase().includes(term)||t.subject.toLowerCase().includes(term);}));}
-    var searchTimeout;searchInput.addEventListener('input',function(){clearTimeout(searchTimeout);searchTimeout=setTimeout(handleSearch,300);});searchButton.addEventListener('click',handleSearch);
-function loadData() {
-  teachersGrid.innerHTML = '<p>جاري التحميل...</p>';
-  var errorMsg = '<p class="error">حدث خطأ في تحميل البيانات</p>';
-  fetch(window.getDataUrl())
-    .then(function(res) {
-      if (!res.ok) throw new Error('فشل تحميل البيانات');
-      return res.json();
-    })
-    .then(function(data) {
-      teachers = data.teachers;
-      renderTeachers();
-      console.log('بيانات JSON:', data);
-    })
-    .catch(function(error) {
-      console.error('Error:', error);
-      teachersGrid.innerHTML = errorMsg;
-      teachersGrid.innerHTML += '\n<button onclick="location.reload()" style="margin-top:1rem;padding:0.5rem 1rem;background:var(--primary);color:#fff;border:none;border-radius:5px;">إعادة تحميل البيانات</button>';
+    var teachersGrid = document.getElementById('teachersGrid');
+    var searchInput = document.getElementById('searchInput');
+    var searchButton = document.getElementById('searchButton');
+    var teachers = [], currentTeacher = null, currentClassIndex = 0, currentLectureIndex = 0, currentLectureLink = '';
+
+    function navigate(page) {
+      window.scrollTo(0, 0);
+      if (page !== 'video') {
+        player.pause();
+        if (hls) { hls.destroy(); hls = null; }
+      }
+      Object.keys(pages).forEach(function(k) { pages[k].classList.remove('active'); });
+      pages[page].classList.add('active');
+    }
+
+    function renderTeachers(list) {
+      list = list || teachers;
+      if (!list.length) {
+        teachersGrid.innerHTML = '<p>لا يوجد نتائج مطابقة</p>';
+        return;
+      }
+      teachersGrid.innerHTML = list.map(function(t) {
+        return '<div class="teacher-card" onclick="showTeacher(\'' + t.id + '\')"><img src="' + t.image + '" alt="' + t.name + '" class="teacher-img"><h3 class="teacher-name">' + t.name + '</h3><p>' + t.subject + '</p></div>';
+      }).join('');
+    }
+
+    function showTeacher(id) {
+      currentTeacher = teachers.find(function(t) { return t.id == id; });
+      if (!currentTeacher) return;
+      document.getElementById('teacherImage').src = currentTeacher.image;
+      document.getElementById('teacherName').textContent = currentTeacher.name;
+      document.getElementById('teacherSubject').textContent = currentTeacher.subject;
+      renderClasses(currentTeacher.classes);
+      navigate('classes');
+    }
+
+    function renderClasses(classesData) {
+      document.getElementById('classesList').innerHTML = classesData.map(function(cls, ci) {
+        var lectures = cls.lectures.map(function(lec, li) {
+          var done = completedLectures[lec.url];
+          return '<div class="lecture-item" onclick="playVideo(' + ci + ',' + li + ',\'' + lec.url.replace(/'/g, "\\'") + '\',\'' + lec.title.replace(/'/g, "\\'") + '\',\'' + lec.description.replace(/'/g, "\\'") + '\')">' + (li + 1) + '. ' + lec.title + (done ? '<span class="checkmark">✔</span>' : '') + '</div>';
+        }).join('');
+        return '<div class="class-card"><div class="class-header" onclick="toggleLectures(this)"><h3>' + cls.name + '</h3><span>▼</span></div><div class="lectures-list">' + lectures + '</div></div>';
+      }).join('');
+    }
+
+    function toggleLectures(el) {
+      var list = el.parentElement.querySelector('.lectures-list');
+      var arrow = el.querySelector('span');
+      if (!list.style.display || list.style.display === 'none') {
+        list.style.display = 'grid';
+        arrow.textContent = '▲';
+      } else {
+        list.style.display = 'none';
+        arrow.textContent = '▼';
+      }
+    }
+
+    function playVideo(ci, li, url, title, desc) {
+      currentClassIndex = ci;
+      currentLectureIndex = li;
+      currentLectureLink = url;
+      var video = document.getElementById('player');
+
+      if (url.endsWith('.m3u8')) {
+        console.log('Trying to play m3u8:', url);
+        if (hls) {
+          hls.destroy();
+        }
+        if (typeof Hls === 'undefined') {
+          alert('Hls.js library is not loaded!');
+          console.error('Hls.js is not loaded.');
+          return;
+        }
+        if (Hls.isSupported()) {
+          hls = new Hls({
+            autoStartLoad: true,
+            startLevel: -1,
+            capLevelToPlayerSize: true,
+            maxBufferLength: 30
+          });
+          hls.loadSource(url);
+          hls.attachMedia(video);
+
+          hls.on(Hls.Events.ERROR, function (event, data) {
+            console.error('HLS error:', data);
+            if (data.type === 'networkError' || data.details === 'manifestLoadError' || data.details === 'levelLoadError') {
+              // عرض رسالة خطأ مع زر نسخ الرابط
+              if (confirm('تعذر تحميل الفيديو. قد يكون الرابط غير صالح أو هناك مشكلة في الاتصال أو حماية من السيرفر (CORS).\n\nهل تريد نسخ رابط الفيديو لتجربته في متصفح أو برنامج خارجي؟')) {
+                navigator.clipboard.writeText(url).then(function() {
+                  alert('تم نسخ الرابط. يمكنك لصقه في VLC أو المتصفح.');
+                });
+              }
+            } else {
+              alert('حدث خطأ أثناء تحميل الفيديو (HLS): ' + data.type);
+            }
+          });
+
+          hls.on(Hls.Events.MANIFEST_PARSED, function () {
+            player.play();
+          });
+
+          hls.on(Hls.Events.LEVEL_SWITCHED, function (event, data) {
+            console.log('Switched to quality level:', data.level);
+          });
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+          video.src = url;
+          video.addEventListener('loadedmetadata', function () {
+            player.play();
+          });
+        } else {
+          alert('هذا المتصفح لا يدعم بث الفيديو بهذا الصيغة (m3u8)');
+          console.error('m3u8 not supported in this browser');
+          return;
+        }
+      }
+      else {
+        player.source = {
+          type: 'video',
+          sources: [{src: url, type: 'video/mp4'}]
+        };
+        player.play();
+      }
+      document.getElementById('videoTitle').textContent = title;
+      document.getElementById('videoDescription').textContent = desc;
+      navigate('video');
+    }
+
+    player.on('ended', function() {
+      markLectureCompleted(currentLectureLink);
+      var cls = currentTeacher.classes;
+      var ci = currentClassIndex;
+      var li = currentLectureIndex;
+      if (li < cls[ci].lectures.length - 1) {
+        li++;
+      } else if (ci < cls.length - 1) {
+        ci++; li = 0;
+      } else return;
+      var next = cls[ci].lectures[li];
+      playVideo(ci, li, next.url, next.title, next.description);
     });
-}
-    function closeModal(){document.getElementById('telegramModal').style.display='none';}
-    document.addEventListener('contextmenu',function(e){e.preventDefault();});document.addEventListener('selectstart',function(e){e.preventDefault();});
+
+    function handleSearch() {
+      var term = searchInput.value.trim().toLowerCase();
+      renderTeachers(teachers.filter(function(t) {
+        return t.name.toLowerCase().includes(term) || t.subject.toLowerCase().includes(term);
+      }));
+    }
+
+    var searchTimeout;
+    searchInput.addEventListener('input', function() {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(handleSearch, 300);
+    });
+    searchButton.addEventListener('click', handleSearch);
+
+    function loadData() {
+      teachersGrid.innerHTML = '<p>جاري التحميل...</p>';
+      var errorMsg = '<p class="error">حدث خطأ في تحميل البيانات</p>';
+      fetch(window.getDataUrl())
+        .then(function(res) {
+          if (!res.ok) throw new Error('فشل تحميل البيانات');
+          return res.json();
+        })
+        .then(function(data) {
+          teachers = data.teachers;
+          renderTeachers();
+          console.log('بيانات JSON:', data);
+        })
+        .catch(function(error) {
+          console.error('Error:', error);
+          teachersGrid.innerHTML = errorMsg;
+          teachersGrid.innerHTML += '\n<button onclick="location.reload()" style="margin-top:1rem;padding:0.5rem 1rem;background:var(--primary);color:#fff;border:none;border-radius:5px;">إعادة تحميل البيانات</button>';
+        });
+    }
+
+    function closeModal() {
+      document.getElementById('telegramModal').style.display = 'none';
+    }
+
+    document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+    document.addEventListener('selectstart', function(e) { e.preventDefault(); });
+
     loadData();
   </script>
 <footer class="site-footer" style="background: var(--card-color); color: var(--text-color); padding: 1.5rem; text-align: center; margin-top: 2rem;">
