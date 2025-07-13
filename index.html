@@ -15,49 +15,53 @@
   <script src="https://cdn.jsdelivr.net/npm/@babel/standalone/babel.min.js"></script>
   
   <style>
-    :root {
-      --primary: #ff6f00;
-      --primary-dark: #e65100;
-      --primary-light: #ff8f00;
-      --secondary: #2196f3;
-      --accent: #4caf50;
-      --warning: #ff9800;
-      --error: #f44336;
-      --success: #8bc34a;
-      
-      --plyr-color-main: #ff6f00;
-      --bg-color: #0a0a0a;
-      --bg-secondary: #121212;
-      --text-color: #ffffff;
-      --text-secondary: #b0b0b0;
-      --card-color: #1e1e1e;
-      --card-hover: #2a2a2a;
-      --border-color: #333333;
-      --shadow: 0 4px 20px rgba(0,0,0,0.3);
-      --shadow-hover: 0 8px 30px rgba(20,170,255,0.2);
+:root {
+  --primary: #0077b6;         /* أزرق بحري */
+  --primary-dark: #005f87;    /* أزرق بحري غامق */
+  --primary-light: #0096c7;   /* أزرق بحري فاتح */
+  
+  --secondary: #2196f3;
+  --accent: #4caf50;
+  --warning: #ff9800;
+  --error: #f44336;
+  --success: #8bc34a;
 
-      --gradient-primary: linear-gradient(135deg, #ff6f00 0%, #ff8f00 100%);
-      --gradient-card: linear-gradient(145deg, #1e1e1e 0%, #2a2a2a 100%);
-      --gradient-bg: linear-gradient(180deg, #0a0a0a 0%, #121212 100%);
-    }
+  --plyr-color-main: #0077b6; /* لون مشغل الفيديو مثلاً */
+
+  --bg-color: #0a0a0a;
+  --bg-secondary: #121212;
+  --text-color: #ffffff;
+  --text-secondary: #b0b0b0;
+  --card-color: #1e1e1e;
+  --card-hover: #2a2a2a;
+  --border-color: #333333;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  --shadow-hover: 0 8px 30px rgba(0, 119, 182, 0.2); /* ظل أزرق بحري */
+
+  --gradient-primary: linear-gradient(135deg, #0077b6 0%, #0096c7 100%);
+  --gradient-card: linear-gradient(145deg, #1e1e1e 0%, #2a2a2a 100%);
+  --gradient-bg: linear-gradient(180deg, #0a0a0a 0%, #121212 100%);
+}
+
     
-    [data-theme="light"] {
-      --primary: #ff6f00;
-      --primary-dark: #e65100;
-      --primary-light: #ff8f00;
-      --bg-color: #f8f9fa;
-      --bg-secondary: #ffffff;
-      --text-color: #212529;
-      --text-secondary: #6c757d;
-      --card-color: #ffffff;
-      --card-hover: #f8f9fa;
-      --border-color: #e9ecef;
-      --shadow: 0 4px 20px rgba(0,0,0,0.1);
-      --shadow-hover: 0 8px 30px rgba(20,170,255,0.15);
+[data-theme="light"] {
+  --primary: #0077b6;         /* أزرق بحري */
+  --primary-dark: #005f87;    /* أزرق بحري غامق */
+  --primary-light: #0096c7;   /* أزرق بحري فاتح */
+  --bg-color: #f8f9fa;
+  --bg-secondary: #ffffff;
+  --text-color: #212529;
+  --text-secondary: #6c757d;
+  --card-color: #ffffff;
+  --card-hover: #f8f9fa;
+  --border-color: #e9ecef;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  --shadow-hover: 0 8px 30px rgba(0, 119, 182, 0.15); /* ظل أزرق بحري */
 
-      --gradient-card: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
-      --gradient-bg: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
-    }
+  --gradient-card: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+  --gradient-bg: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+}
+
 
     * {
       box-sizing: border-box;
