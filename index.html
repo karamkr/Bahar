@@ -181,6 +181,7 @@
       Object.keys(pages).forEach(function(k) { pages[k].classList.remove('active'); });
       pages[page].classList.add('active');
     }
+    window.navigate = navigate;
 
     function renderTeachers(list) {
       list = list || teachers;
@@ -202,6 +203,7 @@
       renderClasses(currentTeacher.classes);
       navigate('classes');
     }
+    window.showTeacher = showTeacher;
 
     function renderClasses(classesData) {
       document.getElementById('classesList').innerHTML = classesData.map(function(cls, ci) {
@@ -224,6 +226,7 @@
         arrow.textContent = '▼';
       }
     }
+    window.toggleLectures = toggleLectures;
 
     function playVideo(ci, li, url, title, desc) {
       currentClassIndex = ci;
@@ -294,6 +297,7 @@
       document.getElementById('videoDescription').textContent = desc;
       navigate('video');
     }
+    window.playVideo = playVideo;
 
     player.on('ended', function() {
       markLectureCompleted(currentLectureLink);
@@ -346,6 +350,7 @@
     function closeModal() {
       document.getElementById('telegramModal').style.display = 'none';
     }
+    window.closeModal = closeModal;
 
     document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
     document.addEventListener('selectstart', function(e) { e.preventDefault(); });
