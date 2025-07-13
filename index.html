@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title> بحر أكاديمي</title>
+  <title>بحر أكاديمي</title>
   <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.plyr.io/3.7.2/plyr.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -154,7 +154,7 @@
       font-weight: 800;
       cursor: pointer;
       transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      text-shadow: 0 2px 4px rgba(20, 170, 255, 0.3);
+      text-shadow: 0 2px 4px rgba(255,111,0,0.3);
       position: relative;
     }
 
@@ -188,7 +188,7 @@
       background: var(--bg-secondary);
       padding: 0.5rem;
       border-radius: 12px;
-      box-shadow: inset 0 2px 4px rgba(0, 170, 255, 0.1);
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
     }
 
     .nav-btn {
@@ -356,7 +356,7 @@
       display: block;
       margin: 0 auto 1.5rem;
       transition: all 0.3s;
-      box-shadow: 0 8px 20px rgba(20, 170, 255, 0.981);
+      box-shadow: 0 8px 20px rgba(255,111,0,0.3);
     }
 
     .teacher-card:hover .teacher-img {
@@ -401,7 +401,7 @@
       border-radius: 50%;
       border: 4px solid var(--primary);
       object-fit: cover;
-      box-shadow: 0 8px 20px rgba(0, 170, 255, 0.981);
+      box-shadow: 0 8px 20px rgba(255,111,0,0.3);
     }
 
     .teacher-details h2 {
@@ -532,7 +532,7 @@
 
     .lecture-checkbox:hover {
       transform: scale(1.1);
-      box-shadow: 0 0 10px rgba(0, 170, 255, 0.981);
+      box-shadow: 0 0 10px rgba(255,111,0,0.3);
     }
 
     .lecture-title {
@@ -1438,33 +1438,33 @@
       `).join('');
     }
 
-function loadData() {
-  fetch(getDataUrl()) 
-    .then(response => {
-      if (!response.ok) throw new Error('فشل تحميل البيانات');
-      return response.json();
-    })
-    .then(data => {
-      teachers = data.teachers;
-      renderTeachers();
-      console.log('تم تحميل البيانات بنجاح:', data);
-    })
-    .catch(error => {
-      console.error('خطأ في تحميل البيانات:', error);
-      teachersGrid.innerHTML = `
-        <div class="teacher-card" style="grid-column: 1/-1; text-align: center;">
-          <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: var(--error); margin-bottom: 1rem;"></i>
-          <h3>حدث خطأ في تحميل البيانات</h3>
-          <p>يرجى التأكد من وجود ملف data.json</p>
-          <button onclick="location.reload()" class="download-btn" style="margin-top: 1rem;">
-            <i class="fas fa-redo"></i>
-            إعادة تحميل الصفحة
-          </button>
-        </div>
-      `;
-    });
-}
-
+    // تحميل البيانات الأولية
+    function loadData() {
+      fetch('data.json')
+        .then(response => {
+          if (!response.ok) throw new Error('فشل تحميل البيانات');
+          return response.json();
+        })
+        .then(data => {
+          teachers = data.teachers;
+          renderTeachers();
+          console.log('تم تحميل البيانات بنجاح:', data);
+        })
+        .catch(error => {
+          console.error('خطأ في تحميل البيانات:', error);
+          teachersGrid.innerHTML = `
+            <div class="teacher-card" style="grid-column: 1/-1; text-align: center;">
+              <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: var(--error); margin-bottom: 1rem;"></i>
+              <h3>حدث خطأ في تحميل البيانات</h3>
+              <p>يرجى التأكد من وجود ملف data.json</p>
+              <button onclick="location.reload()" class="download-btn" style="margin-top: 1rem;">
+                <i class="fas fa-redo"></i>
+                إعادة تحميل الصفحة
+              </button>
+            </div>
+          `;
+        });
+    }
 
     // إغلاق النافذة المنبثقة
     function closeModal() {
@@ -1483,6 +1483,5 @@ function loadData() {
     // تحميل البيانات عند تحميل الصفحة
     loadData();
   </script>
-  <script src="./env.js"></script>
 </body>
 </html>
