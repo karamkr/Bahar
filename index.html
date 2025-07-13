@@ -919,9 +919,8 @@
       <div class="video-details">
         <h2 id="videoTitle"></h2>
         <p id="videoDescription"></p>
-        <button class="copy-button" onclick="copyLectureLin()">
+        <button class="copy-button" onclick="copyLectureLink()">
           <i class="fas fa-copy"></i>
-          
         </button>
         <button class="back-button" onclick="navigate('classes')">
           <i class="fas fa-arrow-right"></i>
@@ -963,10 +962,6 @@
       <p>تابع آخر التحديثات والمحتوى الجديد</p>
       
       <a href="https://t.me/sads86ff" target="_blank">اذهب للقناة</a>
-    </div
-        <i class="fab fa-telegram-plane"></i>
-        اذهب للقناة
-      </a>
       <br>
       <button onclick="closeModal()" class="download-btn" style="margin-top: 1rem;">
         <i class="fas fa-check"></i>
@@ -1136,7 +1131,7 @@
       
       teachersGrid.innerHTML = list.map(teacher => `
         <div class="teacher-card" onclick="showTeacher('${teacher.id}')">
-          <img src="https://iq200.netlify.app/${teacher.image}" alt="${teacher.name}" class="teacher-img" loading="lazy">
+          <img src="${teacher.image}" alt="${teacher.name}" class="teacher-img" loading="lazy">
           <h3 class="teacher-name">${teacher.name}</h3>
           <p class="teacher-subject">${teacher.subject}</p>
         </div>
@@ -1209,7 +1204,19 @@
       currentLectureIndex = li;
       currentLectureLink = url;
       const video = document.getElementById('player');
-      
+      console.log('تشغيل الفيديو:', url);
+
+      // تحقق من أن الرابط يبدأ بـ http أو https أو file (للتشغيل المحلي)
+      if (!/^https?:\/\//.test(url) && !/^file:\/\//.test(url)) {
+        alert('رابط الفيديو غير صحيح أو غير كامل: ' + url);
+        return;
+      }
+
+      // عند التشغيل المحلي (file://) معظم المتصفحات تمنع تشغيل m3u8 بسبب CORS وسياسات الأمان
+      if (url.endsWith('.m3u8') && location.protocol === 'file:') {
+        alert('تشغيل ملفات m3u8 محلياً غير مدعوم في معظم المتصفحات. يجب عليك تشغيل الموقع عبر سيرفر محلي مثل live-server أو http-server أو python -m http.server');
+        return;
+      }
       if (url.endsWith('.m3u8')) {
         if (hls) hls.destroy();
         if (Hls.isSupported()) {
@@ -1217,12 +1224,15 @@
           hls.loadSource(url);
           hls.attachMedia(video);
           hls.on(Hls.Events.MANIFEST_PARSED, () => {
-            // استعادة موضع الفيديو المحفوظ
             const savedTime = getVideoProgress(url);
             if (savedTime > 0) {
               player.currentTime = savedTime;
             }
             player.play();
+          });
+          hls.on(Hls.Events.ERROR, function(event, data) {
+            console.error('HLS error:', data);
+            alert('تعذر تشغيل الفيديو (m3u8). تحقق من الرابط أو دعم السيرفر لـ CORS.\n\nإذا كنت تستخدم سيرفر محلي ولم يعمل، فهذا يعني أن السيرفر المصدر لا يدعم CORS.');
           });
         } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
           video.src = url;
@@ -1242,18 +1252,21 @@
           type: 'video',
           sources: [{ src: url, type: 'video/mp4' }]
         };
-        
-        // استعادة موضع الفيديو بعد تحميل المصدر
+
         player.on('ready', () => {
           const savedTime = getVideoProgress(url);
           if (savedTime > 0) {
             player.currentTime = savedTime;
           }
         });
-        
+
+        player.on('error', () => {
+          alert('تعذر تشغيل الفيديو (mp4). تحقق من الرابط أو دعم السيرفر.');
+        });
+
         player.play();
       }
-      
+
       document.getElementById('videoTitle').textContent = title;
       document.getElementById('videoDescription').textContent = desc;
       navigate('video');
@@ -1359,10 +1372,10 @@
     function renderMaterials() {
       materialsGrid.innerHTML = materials.map(material => `
         <div class="material-card">
-          <img src="https://iq200.netlify.app/${material.image}" alt="${material.title}" class="material-img" loading="lazy">
+          <img src="${material.image}" alt="${material.title}" class="material-img" loading="lazy">
           <h3 class="material-title">${material.title}</h3>
           <p class="material-subject">${material.subject}</p>
-          <a href="https://iq200.netlify.app/${material.downloadUrl}" target="_blank" class="download-btn">
+          <a href="${material.downloadUrl}" target="_blank" class="download-btn">
             <i class="fas fa-download"></i>
             تحميل الملزمة
           </a>
@@ -1423,24 +1436,8 @@
         });
     }
 
-    // عرض الامتحانات
-    function renderExams() {
-      examsGrid.innerHTML = exams.map(exam => `
-        <div class="exam-card">
-          <h3 class="exam-title">${exam.title}</h3>
-          <p class="exam-subject">${exam.subject} - ${exam.chapter}</p>
-          <p style="margin-bottom: 1.5rem;">${exam.description}</p>
-          <a href="https://iq200.netlify.app/${exam.downloadUrl}" target="_blank" class="download-btn">
-            <i class="fas fa-download"></i>
-            تحميل الامتحان
-          </a>
-        </div>
-      `).join('');
-    }
-
-    // تحميل البيانات الأولية
 function loadData() {
-  fetch(getDataUrl())  // 👈 هذا هو التعديل الوحيد المطلوب
+  fetch(getDataUrl()) 
     .then(response => {
       if (!response.ok) throw new Error('فشل تحميل البيانات');
       return response.json();
@@ -1486,4 +1483,11 @@ function loadData() {
   </script>
   <script src="./env.js"></script>
 </body>
+</html>
+</body>
+</html>
+</html>
+</html>
+</body>
+</html>
 </html>
