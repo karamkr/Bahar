@@ -1439,32 +1439,33 @@
     }
 
     // تحميل البيانات الأولية
-    function loadData() {
-      fetch('data.json')
-        .then(response => {
-          if (!response.ok) throw new Error('فشل تحميل البيانات');
-          return response.json();
-        })
-        .then(data => {
-          teachers = data.teachers;
-          renderTeachers();
-          console.log('تم تحميل البيانات بنجاح:', data);
-        })
-        .catch(error => {
-          console.error('خطأ في تحميل البيانات:', error);
-          teachersGrid.innerHTML = `
-            <div class="teacher-card" style="grid-column: 1/-1; text-align: center;">
-              <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: var(--error); margin-bottom: 1rem;"></i>
-              <h3>حدث خطأ في تحميل البيانات</h3>
-              <p>يرجى التأكد من وجود ملف data.json</p>
-              <button onclick="location.reload()" class="download-btn" style="margin-top: 1rem;">
-                <i class="fas fa-redo"></i>
-                إعادة تحميل الصفحة
-              </button>
-            </div>
-          `;
-        });
-    }
+function loadData() {
+  fetch(getDataUrl())  // 👈 هذا هو التعديل الوحيد المطلوب
+    .then(response => {
+      if (!response.ok) throw new Error('فشل تحميل البيانات');
+      return response.json();
+    })
+    .then(data => {
+      teachers = data.teachers;
+      renderTeachers();
+      console.log('تم تحميل البيانات بنجاح:', data);
+    })
+    .catch(error => {
+      console.error('خطأ في تحميل البيانات:', error);
+      teachersGrid.innerHTML = `
+        <div class="teacher-card" style="grid-column: 1/-1; text-align: center;">
+          <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: var(--error); margin-bottom: 1rem;"></i>
+          <h3>حدث خطأ في تحميل البيانات</h3>
+          <p>يرجى التأكد من وجود ملف data.json</p>
+          <button onclick="location.reload()" class="download-btn" style="margin-top: 1rem;">
+            <i class="fas fa-redo"></i>
+            إعادة تحميل الصفحة
+          </button>
+        </div>
+      `;
+    });
+}
+
 
     // إغلاق النافذة المنبثقة
     function closeModal() {
@@ -1483,5 +1484,6 @@
     // تحميل البيانات عند تحميل الصفحة
     loadData();
   </script>
+  <script src="./env.js"></script>
 </body>
 </html>
