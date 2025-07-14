@@ -1,13 +1,12 @@
 (function(){
-  const parts = [
-    "aHR0cHM6Ly9yYXcu", 
-    "Z2l0aHVidXNlcmNv", 
-    "bnRlbnQuY29tL0th",
-    "cmFtLVNhYmFoL2pz",
-    "b24vcmVmcy9oZWFk",
-    "cy9tYWluL2RhdGEu",
-    "anNvbg=="
-  ];
+const parts = [
+  "aHR0cHM6Ly9yYXcu",
+  "Z2l0aHVidXNlcmNv",
+  "bnRlbnQuY29tL2th",
+  "cmFta3IvQmFoYXIv",
+  "cmVmcy9oZWFkcy9t",
+  "YWluL2RhdGEuanNvbg=="
+];
 
   const joined = parts.join('');
   const decoded = atob(joined);
