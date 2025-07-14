@@ -1,6 +1,5 @@
 <!DOCTYPE html><html lang="ar" dir="rtl">
   <head>
-    <script src="env.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>بحر أكاديمي</title>
@@ -258,7 +257,7 @@
 function loadData() {
   teachersGrid.innerHTML = '<p>جاري التحميل...</p>';
   var errorMsg = '<p class="error">حدث خطأ في تحميل البيانات</p>';
-  fetch(window.getDataUrl())
+  fetch('data.json')
     .then(function(res) {
       if (!res.ok) throw new Error('فشل تحميل البيانات');
       return res.json();
